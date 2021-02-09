@@ -1,0 +1,30 @@
+.weather-app-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.container.weatherApp {
+  border: 1px solid #D9D9D9;
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 8px;
+}
+
+.container.bottomHalf, .topHalf {
+  padding: 20px;
+}
+
+button {
+  width: 90px;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+font-size: 24px;
+}
+
