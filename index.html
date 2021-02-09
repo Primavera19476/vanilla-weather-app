@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://kit.fontawesome.com/944fe2f43a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="src/style.css">
   <title>Vanilla-weather-app</title>
 </head>
@@ -16,7 +17,7 @@
     <div class="form-group">
       <div class="row">
         <div class="col-8">
-          <input type="search" class="form-control" placeholder="Enter a city">
+          <input type="search" autocomplete="off" class="form-control" placeholder="Enter a city">
         </div>
         <div class="col-2">
           <button type="submit" class="btn btn-light">Search</button>    
@@ -57,19 +58,27 @@
             <div class="card">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"> 22:00
-                  <i class="fas fa-wind"></i>
+                  <i class="fas fa-wind list-group-icon"></i>
                   <span id=temperatureToday>4°C</span>
                 </li>
                 <li class="list-group-item"> 01:00
-                  <i class="fas fa-wind"></i>
+                  <i class="fas fa-wind list-group-icon"></i>
                   <span class="temperatureMain">4°C</span>
                 </li>
                 <li class="list-group-item"> 05:00
-                  <i class="fas fa-wind"></i>
+                  <i class="fas fa-wind list-group-icon"></i>
                   <span>4°C</span>
                 </li>
                 <li class="list-group-item"> 08:00
-                  <i class="fas fa-wind"></i>
+                  <i class="fas fa-wind list-group-icon"></i>
+                  <span>4°C</span>
+                </li>
+                <li class="list-group-item"> 08:00
+                  <i class="fas fa-wind list-group-icon"></i>
+                  <span>4°C</span>
+                </li>
+                <li class="list-group-item"> 08:00
+                  <i class="fas fa-wind list-group-icon"></i>
                   <span>4°C</span>
                 </li>
               </ul>
