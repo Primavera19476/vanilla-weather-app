@@ -1,1 +1,8 @@
-let name = prompt ("What is your name");
+/*Search engine
+API integration
+unit conversion
+wind speed
+precipitation
+weather description
+and weather icon are mandatory.
+The forecast is optional */
