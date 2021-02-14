@@ -1,3 +1,9 @@
+.background-image {
+  background-image: url("design/rain.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .weather-app-wrapper {
   max-width: 700px;
   margin: 0 auto;
@@ -22,7 +28,19 @@
 
 .list-group .list-group-icon {
   margin-left: 10px;
-  margin-right: 10px;;
+  margin-right: 10px;
+}
+
+.temperatureOverview img, span {
+  float: left;
+}
+
+ul.forecastWeek, li {
+  display: inline;
+}
+
+#temperature {
+  font-size: 50px;
 }
 
 button {

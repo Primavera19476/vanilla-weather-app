@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="src/style.css">
   <title>Vanilla-weather-app</title>
 </head>
-<body>
+<body class="background-image">
 <div class="weather-app-wrapper">
   <div class="container weatherApp">
     <div class="form-group">
@@ -29,30 +29,37 @@
     </div>
     <div class="container topHalf">
       <div class= "row">
-          <div class=col-4>
+          <div class="col-4">
             <h1>Current City</h1>
             <li class="dayElement">
               <span id="current-day">Tuesday</span>,
               <span id="current-time">21:00</span>
             </li>
             <li>Mainly cloudy</li>
-            <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="mainly cloudy">
-            <span class="temperature" id="temperature">4</span>
-            <span class="units">
-              <a href="#" id="celsius-link">°C</a> |
-              <a href="#" id="fahrenheit-link">°F</a>
-            </span>
+            <div class="temperatureOverview">
+              <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="mainly cloudy">
+              <span class="temperature" id="temperature">4</span>
+              <span class="units">
+                <a href="#" id="celsius-link">°C</a> |
+                <a href="#" id="fahrenheit-link">°F</a>
+              </span>
+            </div>
           </div>
-          <div class=col-4>
-            <li>Precipitation:
-              <span id="precipitation">3</span>%
-            </li>
-            <li id="humidity">Humidity: 
-              <span>86</span>%
-            </li id="windspeed">
-            <li>Windspeed: 
-              <span>6</span>km/h
-            </li>
+          <div class="col-4">
+            <ul>
+              <li>Feels like:
+                <span id="precipitation">3</span>°C
+              </li>
+              <li>Precipitation:
+                <span id="precipitation">3</span>%
+              </li>
+              <li id="humidity">Humidity: 
+                <span>86</span>%
+              </li id="windspeed">
+              <li>Windspeed: 
+                <span>6</span>km/h
+              </li>
+            </ul>
           </div>
           <div class="col-4">
             <div class="card">
@@ -89,12 +96,14 @@
     <hr/>
     <div class="container bottomHalf">
       <div class="col-12">
-          <li>Tomorrow</li>
-          <li>Day after</li>
-          <li>2 days from now</li>
-          <li>3 days from now</li>
-          <li>4 days from now</li>
-      </div>
+        <ul class="forecastWeek">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+        </ul>
+        </div>
     </div>
   </div>
   <small>
