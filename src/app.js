@@ -18,6 +18,8 @@ function displayWeatherDefault (response) {
   document.querySelector("#feels-like").innerHTML = Math.round(response.data.main.feels_like);
   document.querySelector("#humidity").innerHTML = Math.round(response.data.main.humidity);
   document.querySelector("#windspeed").innerHTML = Math.round(response.data.wind.speed);
+  document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
 }
   let city = "Vienna";
   let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
@@ -70,6 +72,8 @@ function displayWeatherMain (response) {
   document.querySelector("#feels-like").innerHTML = Math.round(response.data.main.feels_like);
   document.querySelector("#humidity").innerHTML = Math.round(response.data.main.humidity);
   document.querySelector("#windspeed").innerHTML = Math.round(response.data.wind.speed);
+  document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
   let dateElement = document.querySelector("#day-element");
 let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
