@@ -20,25 +20,25 @@
           <input type="search" autocomplete="off" class="form-control" placeholder="Enter a city">
         </div>
         <div class="col-2">
-          <button type="submit" class="btn btn-light">Search</button>    
+          <button id="searchButton" type="submit" class="btn btn-light">Search</button>    
         </div>
         <div class="col-2">
-          <button type="submit" class="btn btn-light">Reset</button>    
+          <button id="resetButton" type="submit" class="btn btn-light">Reset</button>    
         </div>
       </div>
     </div>
     <div class="container topHalf">
       <div class= "row">
           <div class="col-6">
-            <h1>Current City</h1>
+            <h1 id="current-City">Current City</h1>
             <li class="dayElement">
               <span id="current-day">Tuesday</span>,
               <span id="current-time">21:00</span>
             </li>
-            <li>Mainly cloudy</li>
+            <li id="description">Mainly cloudy</li>
             <div class="temperatureMain">
               <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="mainly cloudy">
-              <span class="temperature" id="temperature">4</span>
+              <span class="temperature" id="temperature-Main">4</span>
               <span class="units">
                 <a href="#" id="celsius-link">°C</a> |
                 <a href="#" id="fahrenheit-link">°F</a>
@@ -47,16 +47,13 @@
             <div class="detailsMain">
               <ul>
                 <li>Feels like:
-                  <span id="precipitation">3</span>°C
+                  <span id="feels-like">3</span>°C
                 </li>
-                <li>Precipitation:
-                  <span id="precipitation">3</span>%
+                <li>Humidity: 
+                  <span id="humidity">86</span>%
                 </li>
-                <li id="humidity">Humidity: 
-                  <span>86</span>%
-                </li id="windspeed">
                 <li>Windspeed: 
-                  <span>6</span>km/h
+                  <span id="windspeed">6</span>km/h
                 </li>
               </ul>
             </div>
