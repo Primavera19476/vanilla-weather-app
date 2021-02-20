@@ -88,23 +88,29 @@ dateElement.innerHTML = formatDate(currentTime);
  function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElementMain = document.querySelector ("#temperature-Main");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
   let fahrenheitTemperature = (celciusTemperature *9)/5+32;
   temperatureElementMain.innerHTML = Math.round(fahrenheitTemperature);
-
+  
   let feelsLikeElement = document.querySelector ("#feels-like");
   let fahrenheitTemperatureFeelsLike = (celciusTemperatureFeelsLike *9)/5+32;
   feelsLikeElement.innerHTML = Math.round(fahrenheitTemperatureFeelsLike);
   document.querySelector("#feels-like-unit").innerHTML = "F";
+  
 }
 
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElementMain = document.querySelector ("#temperature-Main");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   temperatureElementMain.innerHTML = Math.round(celciusTemperature);
   
   let feelsLikeElement = document.querySelector ("#feels-like");
   feelsLikeElement.innerHTML = Math.round(celciusTemperatureFeelsLike);
   document.querySelector("#feels-like-unit").innerHTML = "C";
+
 }
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
