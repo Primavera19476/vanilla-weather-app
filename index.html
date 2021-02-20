@@ -17,11 +17,11 @@
     <div class="form-group">
       <form id="search-form">
         <div class="row">
-          <div class="col-8">
+          <div class="col-9">
             <input id="city-input" type="search" autocomplete="off" class="form-control" placeholder="Enter a city">
           </div>
           <div class="col-2">
-            <button id="searchButton" type="submit" class="btn btn-light">Search</button>    
+            <button id="searchButton" type="submit" class="btn btn-light w-200">Search</button>    
           </div>
           <!--- <div class="col-2">
             <button id="resetButton" type="submit" class="btn btn-light">Reset</button>    
@@ -46,7 +46,8 @@
             <div class="detailsMain">
               <ul>
                 <li>Feels like:
-                  <span id="feels-like"></span>°C
+                  <span id="feels-like"></span>°
+                  <span id ="feels-like-unit"></span>
                 </li>
                 <li>Humidity: 
                   <span id="humidity"></span>%
@@ -64,9 +65,9 @@
                   <i class="fas fa-wind list-group-icon"></i>
                   <span id=temperatureToday>4°C</span>
                 </li>
-                <li class="list-group-item"> 01:00
+                <li class="list-group-item"> 23:00
                   <i class="fas fa-wind list-group-icon"></i>
-                  <span class="temperatureMain">4°C</span>
+                  <span id=temperatureToday>4°C</span>
                 </li>
                 <li class="list-group-item"> 05:00
                   <i class="fas fa-wind list-group-icon"></i>
@@ -93,11 +94,11 @@
     <div class="container bottomHalf">
       <div class="col-12">
         <ul class="forecastWeek">
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
+          <li>#Forecast Day 1</li>
+          <li>#Forecast Day 2</li>
+          <li>#Forecast Day 3</li>
+          <li>#Forecast Day 4</li>
+          <li>#Forecast Day 5</li>
         </ul>
         </div>
     </div>

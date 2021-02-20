@@ -15,7 +15,7 @@
 }
 
 .list-group {
-  line-height: 10px;
+  line-height: 25px;
   font-size: 13px;
   text-align: center;
 }
@@ -40,7 +40,6 @@
 
  img, span.temperatureMain {
   float: left;
-  padding: 10px 5px 0px 0px;
 }
 
 span.temperature {
@@ -49,7 +48,7 @@ span.temperature {
 
 span.units {
   float: left;
-  padding-top: 10px;
+  padding-top: 25px;
 }
 
 ul, li.forecastWeek {
@@ -59,6 +58,7 @@ ul, li.forecastWeek {
 #temperature-Main {
   font-size: 50px;
   padding-right: 5px;
+  padding-top: 10px;
 }
 
 button {
