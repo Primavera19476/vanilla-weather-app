@@ -15,13 +15,14 @@ function displayWeatherDefault (response) {
   new Date ();
     celciusTemperature = (response.data.main.temp);
     celciusTemperatureFeelsLike = (response.data.main.feels_like);
+    kmhWindspeed = (response.data.wind.speed);
   let temperatureElementMain = document.querySelector ("#temperature-Main");
   temperatureElementMain.innerHTML = Math.round(celciusTemperature);
   document.querySelector("#current-City").innerHTML = `${response.data.name}, ${response.data.sys.country}`;
   document.querySelector("#description").innerHTML = response.data.weather[0].description;
   document.querySelector("#feels-like").innerHTML = Math.round(celciusTemperatureFeelsLike);
   document.querySelector("#humidity").innerHTML = Math.round(response.data.main.humidity);
-  document.querySelector("#windspeed").innerHTML = Math.round(response.data.wind.speed);
+  document.querySelector("#windspeed").innerHTML = Math.round(kmhWindspeed);
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
 }
@@ -70,13 +71,14 @@ function displayWeatherMain (response) {
   console.log (response);
   celciusTemperature = (response.data.main.temp);
   celciusTemperatureFeelsLike = (response.data.main.feels_like);
+  kmhWindspeed = (response.data.wind.speed);
   let temperatureElementMain = document.querySelector ("#temperature-Main");
   temperatureElementMain.innerHTML = Math.round(celciusTemperature);
   document.querySelector("#current-City").innerHTML = `${response.data.name}, ${response.data.sys.country}`;
   document.querySelector("#description").innerHTML = response.data.weather[0].description;
   document.querySelector("#feels-like").innerHTML = Math.round(celciusTemperatureFeelsLike);
   document.querySelector("#humidity").innerHTML = Math.round(response.data.main.humidity);
-  document.querySelector("#windspeed").innerHTML = Math.round(response.data.wind.speed);
+  document.querySelector("#windspeed").innerHTML = Math.round(kmhWindspeed);
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
   let dateElement = document.querySelector("#day-element");
@@ -98,6 +100,10 @@ dateElement.innerHTML = formatDate(currentTime);
   feelsLikeElement.innerHTML = Math.round(fahrenheitTemperatureFeelsLike);
   document.querySelector("#feels-like-unit").innerHTML = "F";
   
+  let windspeedElement = document.querySelector ("#windspeed");
+  let mphWindspeed = (kmhWindspeed)/1.609;
+  windspeedElement.innerHTML = Math.round(mphWindspeed);
+  document.querySelector("#windspeed-unit").innerHTML = "mph";
 }
 
 function convertToCelsius(event) {
@@ -111,6 +117,9 @@ function convertToCelsius(event) {
   feelsLikeElement.innerHTML = Math.round(celciusTemperatureFeelsLike);
   document.querySelector("#feels-like-unit").innerHTML = "C";
 
+  let windspeedElement = document.querySelector ("#windspeed");
+  windspeedElement.innerHTML = Math.round(kmhWindspeed);
+  document.querySelector("#windspeed-unit").innerHTML = "km/h";
 }
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
@@ -119,7 +128,9 @@ let celsiusLink = document.querySelector("#celsius-link");
 
 celsiusLink.addEventListener("click", convertToCelsius);
 document.querySelector("#feels-like-unit").innerHTML = "C";
+document.querySelector("#windspeed-unit").innerHTML = "km/h";
 let celciusTemperature = null;
 let celciusTemperatureFeelsLike = null;
+let kmhWindspeed = null;
 
 // Forecast //
