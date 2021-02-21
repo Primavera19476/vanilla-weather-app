@@ -10,8 +10,8 @@
   border-radius: 8px;
 }
 
-.container.bottomHalf, .topHalf {
-  padding: 20px;
+.container.topHalf {
+  padding-top: 20px;
 }
 
 .list-group {
@@ -28,6 +28,10 @@
 .detailsMain {
   float: left;
   clear: left;
+}
+
+.bottomHalf {
+  text-align: center;
 }
 
 .temperatureMain .active {
@@ -47,7 +51,7 @@
   font-size: 13px;
 }
 
- img, span.temperatureMain {
+ span.temperatureMain {
   float: left;
 }
 
@@ -58,10 +62,6 @@ span.temperature {
 span.units {
   float: left;
   padding-top: 25px;
-}
-
-ul, li.forecastWeek {
-  display: inline;
 }
 
 #temperature-Main {

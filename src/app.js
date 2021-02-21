@@ -9,30 +9,6 @@
 convert Windspeed to mpH
   The forecast is optional */
 
-// Display Default // 
-function displayWeatherDefault (response) {
-  console.log (response);
-  new Date ();
-    celciusTemperature = (response.data.main.temp);
-    celciusTemperatureFeelsLike = (response.data.main.feels_like);
-    kmhWindspeed = (response.data.wind.speed);
-  let temperatureElementMain = document.querySelector ("#temperature-Main");
-  temperatureElementMain.innerHTML = Math.round(celciusTemperature);
-  document.querySelector("#current-City").innerHTML = `${response.data.name}, ${response.data.sys.country}`;
-  document.querySelector("#description").innerHTML = response.data.weather[0].description;
-  document.querySelector("#feels-like").innerHTML = Math.round(celciusTemperatureFeelsLike);
-  document.querySelector("#humidity").innerHTML = Math.round(response.data.main.humidity);
-  document.querySelector("#windspeed").innerHTML = Math.round(kmhWindspeed);
-  document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-  document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
-}
-  let city = "Vienna";
-  let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
-  let unit = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${apiKey}`;
-  console.log (apiUrl);
-  axios.get(apiUrl).then(displayWeatherDefault);
-
 // Format Date //
 function formatDate (dateValue) {
   let hours = dateValue.getHours();
@@ -54,17 +30,24 @@ let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
 
 // Search-Bar Input //
-function search (event) {
-  event.preventDefault();
-  let city = document.querySelector("#city-input").value;
+function search (city) {
   let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
   let unit = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${apiKey}`;
   console.log (apiUrl);
   axios.get(apiUrl).then(displayWeatherMain);
 }
+
+function handleSubmit (event) {
+  event.preventDefault ();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+}
+
 let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", search);
+searchForm.addEventListener("submit", handleSubmit);
+
+search("Vienna");
 
 // display weather // 
 function displayWeatherMain (response) {
@@ -82,12 +65,12 @@ function displayWeatherMain (response) {
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
   let dateElement = document.querySelector("#day-element");
-let currentTime = new Date();
+  let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
 }
 
 // Convert Units //
- function convertToFahrenheit(event) {
+function convertToFahrenheit(event) {
   event.preventDefault();
   let temperatureElementMain = document.querySelector ("#temperature-Main");
   celsiusLink.classList.remove("active");
@@ -116,7 +99,7 @@ function convertToCelsius(event) {
   let feelsLikeElement = document.querySelector ("#feels-like");
   feelsLikeElement.innerHTML = Math.round(celciusTemperatureFeelsLike);
   document.querySelector("#feels-like-unit").innerHTML = "C";
-
+  
   let windspeedElement = document.querySelector ("#windspeed");
   windspeedElement.innerHTML = Math.round(kmhWindspeed);
   document.querySelector("#windspeed-unit").innerHTML = "km/h";
