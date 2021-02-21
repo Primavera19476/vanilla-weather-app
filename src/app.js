@@ -6,8 +6,11 @@
 💯precipitation 
 💯weather description 
 💯and weather icon are mandatory. 
-convert Windspeed to mpH
-  The forecast is optional */
+💯convert Windspeed to mpH
+implement daily forecast
+convert Forecast units
+implement Background-image
+💯 The forecast is optional */
 
 // Format Date //
 function formatDate (dateValue) {
@@ -29,13 +32,55 @@ let dateElement = document.querySelector("#day-element");
 let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
 
+// Format Forecast Hours //
+function formatHours (timestamp) {
+let dateValue = new Date (timestamp);
+    let hours = dateValue.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = dateValue.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
+}
+
 // Search-Bar Input //
 function search (city) {
   let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
   let unit = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${apiKey}`;
-  console.log (apiUrl);
   axios.get(apiUrl).then(displayWeatherMain);
+
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+
+}
+
+function displayForecast (response) {
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecastArray = null;
+
+  for (let index = 0; index < 6; index++) {
+  forecastArray = response.data.list[index];
+  forecastElement.innerHTML +=`
+    <div class="col-2">
+      <h6>
+      ${formatHours(forecastArray.dt* 1000)}
+      </h6>
+      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
+      <br/>
+      <div class="forecast-temperature">
+        <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong> 
+        <br/>
+        ▽ ${ Math.round(forecastArray.main.temp_min)}°
+      </div>
+    </div>
+    `;
+  }
 }
 
 function handleSubmit (event) {
@@ -51,7 +96,6 @@ search("Vienna");
 
 // display weather // 
 function displayWeatherMain (response) {
-  console.log (response);
   celciusTemperature = (response.data.main.temp);
   celciusTemperatureFeelsLike = (response.data.main.feels_like);
   kmhWindspeed = (response.data.wind.speed);

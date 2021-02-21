@@ -43,6 +43,11 @@
   cursor: default;
 }
 
+.forecastIcon {
+  max-width: 70px;
+  padding-right: 3px;
+}
+
 .detailsMain ul {
   padding-inline-start: 0px;
 }
