@@ -52,58 +52,12 @@ function search (city) {
   let unit = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayWeatherMain);
-
-
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayHourlyForecast);
-  console.log (apiUrl);
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayDailyForecast);
 
-}
-
-function displayHourlyForecast (response) {
-  let forecastElement = document.querySelector("#forecastHourly");
-  forecastElement.innerHTML = null;
-  let forecastArray = null;
-
-  for (let index = 0; index < 6; index++) {
-  forecastArray = response.data.list[index];
-  forecastElement.innerHTML +=`
-  <ul class="list-group list-group-flush">
-  <li class="list-group-item"> ${formatHours(forecastArray.dt* 1000)}
-    <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
-    <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong>
-    <span> / ▽ ${ Math.round(forecastArray.main.temp_min)}° </span>
-  </li>
-    </ul>
-    `;
-  }
-}
-
-function displayDailyForecast (response) {
-  let forecastElement = document.querySelector("#forecastDaily");
-  forecastElement.innerHTML = null;
-  let forecastArray = null;
-
-  for (let index = 0; index < 6; index++) {
-  forecastArray = response.data.list[index];
-  forecastElement.innerHTML +=`
-    <div class="col-2">
-      <h6>
-      ${formatHours(forecastArray.dt* 1000)}
-      </h6>
-      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
-      <br/>
-      <div class="forecast-temperature">
-        <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong> 
-        <br/>
-        ▽ ${ Math.round(forecastArray.main.temp_min)}°
-      </div>
-    </div>
-    `;
-  }
 }
 
 function handleSubmit (event) {
@@ -116,6 +70,16 @@ let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
 
 search("Vienna");
+
+// Daily Forecast //
+function getDailyApi () {
+let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
+let unit = "metric";
+let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLatitude}&lon=${cityLongitude}&exclude=minutely&units=${unit}&appid=${apiKey}`;
+console.log(apiUrl); 
+// axios.get(apiUrl).then(displayDailyForecast);
+// PROBLEM: city LAT is not defined
+}
 
 // display weather // 
 function displayWeatherMain (response) {
@@ -134,6 +98,10 @@ function displayWeatherMain (response) {
   let dateElement = document.querySelector("#day-element");
   let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
+
+  let cityLatitude = (response.data.coord.lat);
+  let cityLongitude = (response.data.coord.lon);
+  getDailyApi();
 }
 
 // Convert Units //
@@ -184,3 +152,45 @@ let celciusTemperatureFeelsLike = null;
 let kmhWindspeed = null;
 
 // Forecast //
+function displayHourlyForecast (response) {
+  let forecastElement = document.querySelector("#forecastHourly");
+  forecastElement.innerHTML = null;
+  let forecastArray = null;
+
+  for (let index = 0; index < 6; index++) {
+  forecastArray = response.data.list[index];
+  forecastElement.innerHTML +=`
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item"> ${formatHours(forecastArray.dt* 1000)}
+    <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
+    <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong>
+    <span> / ▽ ${ Math.round(forecastArray.main.temp_min)}° </span>
+  </li>
+    </ul>
+    `;
+  }
+}
+
+function displayDailyForecast (response) {
+  let forecastElement = document.querySelector("#forecastDaily");
+  forecastElement.innerHTML = null;
+  let forecastArray = null;
+
+  for (let index = 0; index < 6; index++) {
+  forecastArray = response.data.list[index];
+  forecastElement.innerHTML +=`
+    <div class="col-2">
+      <h6>
+      ${formatHours(forecastArray.dt* 1000)}
+      </h6>
+      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
+      <br/>
+      <div class="forecast-temperature">
+        <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong> 
+        <br/>
+        ▽ ${ Math.round(forecastArray.main.temp_min)}°
+      </div>
+    </div>
+    `;
+  }
+}
