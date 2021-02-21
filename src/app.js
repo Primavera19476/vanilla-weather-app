@@ -55,30 +55,25 @@ function search (city) {
 
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayHourlyForecast);
 
 }
 
-function displayForecast (response) {
-  let forecastElement = document.querySelector("#forecast");
+function displayHourlyForecast (response) {
+  let forecastElement = document.querySelector("#forecastHourly");
   forecastElement.innerHTML = null;
   let forecastArray = null;
 
   for (let index = 0; index < 6; index++) {
   forecastArray = response.data.list[index];
   forecastElement.innerHTML +=`
-    <div class="col-2">
-      <h6>
-      ${formatHours(forecastArray.dt* 1000)}
-      </h6>
-      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
-      <br/>
-      <div class="forecast-temperature">
-        <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong> 
-        <br/>
-        ▽ ${ Math.round(forecastArray.main.temp_min)}°
-      </div>
-    </div>
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item"> ${formatHours(forecastArray.dt* 1000)}
+    <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
+    <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong>
+    <span> / ▽ ${ Math.round(forecastArray.main.temp_min)}° </span>
+  </li>
+    </ul>
     `;
   }
 }

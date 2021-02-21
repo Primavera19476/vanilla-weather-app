@@ -15,9 +15,13 @@
 }
 
 .list-group {
-  line-height: 25px;
+  line-height: 8px;
   font-size: 13px;
   text-align: center;
+}
+
+.list-group-item {
+  padding: 0px;
 }
 
 .list-group .list-group-icon {
@@ -44,7 +48,7 @@
 }
 
 .forecastIcon {
-  max-width: 70px;
+  max-width: 45px;
   padding-right: 3px;
 }
 
