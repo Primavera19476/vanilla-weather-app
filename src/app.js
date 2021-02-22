@@ -77,10 +77,9 @@ searchForm.addEventListener("submit", handleSubmit);
 
 search("Vienna");
 
-
-
 // display weather // 
 function displayWeatherMain (response) {
+  console.log(response);
   celciusTemperature = (response.data.main.temp);
   celciusTemperatureFeelsLike = (response.data.main.feels_like);
   kmhWindspeed = (response.data.wind.speed);
@@ -94,7 +93,8 @@ function displayWeatherMain (response) {
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
   let descriptionGIF =  response.data.weather[0].description;
-  console.log (response.data.weather[0].description);
+  console.log(descriptionGIF);
+  console.log (response.data.weather[0].main);
   let dateElement = document.querySelector("#day-element");
   let currentTime = new Date();
   dateElement.innerHTML = formatDate(currentTime);
@@ -107,27 +107,26 @@ function displayWeatherMain (response) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLatitude}&lon=${cityLongitude}&exclude=current,minutely,hourly,alerts&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayDailyForecast);
 
-  if  (descriptionGIF === "fog") {
+  // Change Icon //
+  if  (descriptionGIF === "Clouds") {
   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;
+  } else if (descriptionGIF === "Snow") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
+  } else if (descriptionGIF === "Rain") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
+  } else if (descriptionGIF === "Drizzle") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
+  } else if (descriptionGIF === "Thunderstorm") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
+  } else if (descriptionGIF === "Clear") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
+  } else if (descriptionGIF === "Mist"||descriptionGIF === "Smoke"||descriptionGIF === "Haze"||descriptionGIF === "Dust"||descriptionGIF === "Fog"||descriptionGIF === "Sand"||descriptionGIF === "Ash"||descriptionGIF === "Tornado"||descriptionGIF === "Squall")  {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
+  } else {
+    document.querySelector("#weather-gif").innerHTML = null;
   }
 
-  // Change GIF //
- /*if (/rain/.test(descriptionGIF)) {
-    document.querySelector("#weather-gif").innerHTML =
-      `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta">via GIPHY</a></p>`;
-  } else if (/clear/.test(descriptionElement.innerHTML)) {
-    document.querySelector(".weather-app").style.backgroundImage =
-      "url('images/clear.gif')";
-  } else if (/cloud/.test(descriptionElement.innerHTML)) {
-    document.querySelector(".weather-app").style.backgroundImage =
-      "url('images/broken-clouds.gif')";
-  } else if (/snow/.test(descriptionElement.innerHTML)) {
-    document.querySelector(".weather-app").style.backgroundImage =
-      "url('images/snow.gif')";
-  } else {
-    document.querySelector(".weather-app").style.backgroundImage =
-      "url('images/flying.gif')";
-  }*/
+
 }
 
 // Convert Units //
