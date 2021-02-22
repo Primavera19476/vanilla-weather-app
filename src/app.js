@@ -7,7 +7,7 @@
 💯weather description 
 💯and weather icon are mandatory. 
 💯convert Windspeed to mpH
-implement daily forecast
+💯implement daily forecast
 convert Forecast units
 implement Background-image
 💯 The forecast is optional */
@@ -22,7 +22,7 @@ function formatDate (dateValue) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  let days = ["Sunday", "Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   let dayIndex = days[dateValue.getDay()];
 
   let now = `${dayIndex}, ${hours}:${minutes}`;
@@ -35,7 +35,7 @@ dateElement.innerHTML = formatDate(currentTime);
 // Format Day // 
 function formatDay (timestamp) {
 let dateValue = new Date (timestamp);
- let days = ["Sunday", "Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday"]
+ let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   let dayIndex = days[dateValue.getDay()];
 
   let now = `${dayIndex}`;
@@ -77,32 +77,7 @@ searchForm.addEventListener("submit", handleSubmit);
 
 search("Vienna");
 
-// Daily Forecast //
 
-function displayDailyForecast (response) {
-  console.log(response);
-  let dailyForecastElement = document.querySelector("#forecastDaily");
-  dailyForecastElement.innerHTML = null;
-  let dailyForecastArray = null;
-
-  for (let index = 1; index < 7; index++) {
-  dailyForecastArray = response.data.daily[index];
-  dailyForecastElement.innerHTML +=`
-    <div class="col-2">
-      <h6>
-      ${formatDay(dailyForecastArray.dt*1000)}
-      </h6>
-      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${dailyForecastArray.weather[0].icon}@2x.png" alt="${dailyForecastArray.weather[0].description}">
-      <br/>
-      <div class="forecast-temperature">
-        <strong>△ ${Math.round(dailyForecastArray.temp.max)}°</strong> 
-        <br/>
-        ▽ ${ Math.round(dailyForecastArray.temp.min)}°
-      </div>
-    </div>
-    `;
-  }
-}
 
 // display weather // 
 function displayWeatherMain (response) {
@@ -118,9 +93,11 @@ function displayWeatherMain (response) {
   document.querySelector("#windspeed").innerHTML = Math.round(kmhWindspeed);
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
+  let descriptionGIF =  response.data.weather[0].description;
+  console.log (response.data.weather[0].description);
   let dateElement = document.querySelector("#day-element");
   let currentTime = new Date();
-dateElement.innerHTML = formatDate(currentTime);
+  dateElement.innerHTML = formatDate(currentTime);
 
   let cityLatitude = (response.data.coord.lat);
   let cityLongitude = (response.data.coord.lon);
@@ -129,6 +106,28 @@ dateElement.innerHTML = formatDate(currentTime);
   let unit = "metric";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLatitude}&lon=${cityLongitude}&exclude=current,minutely,hourly,alerts&units=${unit}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayDailyForecast);
+
+  if  (descriptionGIF === "fog") {
+  document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;
+  }
+
+  // Change GIF //
+ /*if (/rain/.test(descriptionGIF)) {
+    document.querySelector("#weather-gif").innerHTML =
+      `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta">via GIPHY</a></p>`;
+  } else if (/clear/.test(descriptionElement.innerHTML)) {
+    document.querySelector(".weather-app").style.backgroundImage =
+      "url('images/clear.gif')";
+  } else if (/cloud/.test(descriptionElement.innerHTML)) {
+    document.querySelector(".weather-app").style.backgroundImage =
+      "url('images/broken-clouds.gif')";
+  } else if (/snow/.test(descriptionElement.innerHTML)) {
+    document.querySelector(".weather-app").style.backgroundImage =
+      "url('images/snow.gif')";
+  } else {
+    document.querySelector(".weather-app").style.backgroundImage =
+      "url('images/flying.gif')";
+  }*/
 }
 
 // Convert Units //
@@ -149,6 +148,9 @@ function convertToFahrenheit(event) {
   let mphWindspeed = (kmhWindspeed)/1.609;
   windspeedElement.innerHTML = Math.round(mphWindspeed);
   document.querySelector("#windspeed-unit").innerHTML = "mph";
+
+  // Trial: converting Forecast Units //
+  //document.querySelector("#hourly-forecast-temperature").innerHTML = (document.querySelector("#hourly-forecast-temperature").innerHTML.value *9)/5+32;
 }
 
 function convertToCelsius(event) {
@@ -178,7 +180,7 @@ let celciusTemperature = null;
 let celciusTemperatureFeelsLike = null;
 let kmhWindspeed = null;
 
-// Forecast //
+// Hourly Forecast //
 function displayHourlyForecast (response) {
   let forecastElement = document.querySelector("#forecastHourly");
   forecastElement.innerHTML = null;
@@ -190,10 +192,39 @@ function displayHourlyForecast (response) {
   <ul class="list-group list-group-flush">
   <li class="list-group-item"> ${formatHours(forecastArray.dt* 1000)}
     <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
-    <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong>
-    <span> / ▽ ${ Math.round(forecastArray.main.temp_min)}° </span>
+    <span id="hourly-forecast-temperature"> ${Math.round(forecastArray.main.temp_max)}</span>°
   </li>
     </ul>
     `;
   }
 }
+
+// Daily Forecast //
+
+function displayDailyForecast (response) {
+  console.log(response);
+  let dailyForecastElement = document.querySelector("#forecastDaily");
+  dailyForecastElement.innerHTML = null;
+  let dailyForecastArray = null;
+
+  for (let index = 1; index < 7; index++) {
+  dailyForecastArray = response.data.daily[index];
+  dailyForecastElement.innerHTML +=`
+    <div class="col-2">
+      <h6>
+      ${formatDay(dailyForecastArray.dt*1000)}
+      </h6>
+      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${dailyForecastArray.weather[0].icon}@2x.png" alt="${dailyForecastArray.weather[0].description}">
+      <br/>
+      <div class="forecast-temperature">
+        <strong>△ ${Math.round(dailyForecastArray.temp.max)}</strong>
+        <strong>°</strong>
+        <br/>
+        <span>▽ ${ Math.round(dailyForecastArray.temp.min)}</span>°
+      </div>
+    </div>
+    `;
+  }
+}
+
+
