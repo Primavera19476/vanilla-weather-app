@@ -32,6 +32,16 @@ let dateElement = document.querySelector("#day-element");
 let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
 
+// Format Day // 
+function formatDay (timestamp) {
+let dateValue = new Date (timestamp);
+ let days = ["Sunday", "Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  let dayIndex = days[dateValue.getDay()];
+
+  let now = `${dayIndex}`;
+  return now; 
+}
+
 // Format Forecast Hours //
 function formatHours (timestamp) {
 let dateValue = new Date (timestamp);
@@ -54,10 +64,6 @@ function search (city) {
   axios.get(apiUrl).then(displayWeatherMain);
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayHourlyForecast);
-
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayDailyForecast);
-
 }
 
 function handleSubmit (event) {
@@ -72,13 +78,30 @@ searchForm.addEventListener("submit", handleSubmit);
 search("Vienna");
 
 // Daily Forecast //
-function getDailyApi () {
-let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
-let unit = "metric";
-let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLatitude}&lon=${cityLongitude}&exclude=minutely&units=${unit}&appid=${apiKey}`;
-console.log(apiUrl); 
-// axios.get(apiUrl).then(displayDailyForecast);
-// PROBLEM: city LAT is not defined
+
+function displayDailyForecast (response) {
+  console.log(response);
+  let dailyForecastElement = document.querySelector("#forecastDaily");
+  dailyForecastElement.innerHTML = null;
+  let dailyForecastArray = null;
+
+  for (let index = 1; index < 7; index++) {
+  dailyForecastArray = response.data.daily[index];
+  dailyForecastElement.innerHTML +=`
+    <div class="col-2">
+      <h6>
+      ${formatDay(dailyForecastArray.dt*1000)}
+      </h6>
+      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${dailyForecastArray.weather[0].icon}@2x.png" alt="${dailyForecastArray.weather[0].description}">
+      <br/>
+      <div class="forecast-temperature">
+        <strong>△ ${Math.round(dailyForecastArray.temp.max)}°</strong> 
+        <br/>
+        ▽ ${ Math.round(dailyForecastArray.temp.min)}°
+      </div>
+    </div>
+    `;
+  }
 }
 
 // display weather // 
@@ -101,7 +124,11 @@ dateElement.innerHTML = formatDate(currentTime);
 
   let cityLatitude = (response.data.coord.lat);
   let cityLongitude = (response.data.coord.lon);
-  getDailyApi();
+  
+  let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
+  let unit = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLatitude}&lon=${cityLongitude}&exclude=current,minutely,hourly,alerts&units=${unit}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayDailyForecast);
 }
 
 // Convert Units //
@@ -167,30 +194,6 @@ function displayHourlyForecast (response) {
     <span> / ▽ ${ Math.round(forecastArray.main.temp_min)}° </span>
   </li>
     </ul>
-    `;
-  }
-}
-
-function displayDailyForecast (response) {
-  let forecastElement = document.querySelector("#forecastDaily");
-  forecastElement.innerHTML = null;
-  let forecastArray = null;
-
-  for (let index = 0; index < 6; index++) {
-  forecastArray = response.data.list[index];
-  forecastElement.innerHTML +=`
-    <div class="col-2">
-      <h6>
-      ${formatHours(forecastArray.dt* 1000)}
-      </h6>
-      <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
-      <br/>
-      <div class="forecast-temperature">
-        <strong>△ ${Math.round(forecastArray.main.temp_max)}°</strong> 
-        <br/>
-        ▽ ${ Math.round(forecastArray.main.temp_min)}°
-      </div>
-    </div>
     `;
   }
 }
