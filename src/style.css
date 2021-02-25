@@ -40,6 +40,10 @@
   padding-left: 0px;
 }
 
+.weatherGIF iframe {
+  border-radius: 5px;
+}
+
 .bottomHalf {
   text-align: center;
 }
