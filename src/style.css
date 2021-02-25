@@ -34,6 +34,12 @@
   clear: left;
 }
 
+.weatherGIF {
+  padding-top: 80px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
 .bottomHalf {
   text-align: center;
 }

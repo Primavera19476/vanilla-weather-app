@@ -9,7 +9,7 @@
 💯convert Windspeed to mpH
 💯implement daily forecast
 convert Forecast units
-implement Background-image
+💯 implement Background-image
 💯 The forecast is optional */
 
 // Format Date //
@@ -92,7 +92,7 @@ function displayWeatherMain (response) {
   document.querySelector("#windspeed").innerHTML = Math.round(kmhWindspeed);
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
-  let descriptionGIF =  response.data.weather[0].description;
+  let descriptionGIF =  response.data.weather[0].icon;
   console.log(descriptionGIF);
   console.log (response.data.weather[0].main);
   let dateElement = document.querySelector("#day-element");
@@ -108,24 +108,43 @@ function displayWeatherMain (response) {
   axios.get(apiUrl).then(displayDailyForecast);
 
   // Change Icon //
-  if  (descriptionGIF === "Clouds") {
-  document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;
-  } else if (descriptionGIF === "Snow") {
+  if  (descriptionGIF === "01d") {
+  document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/xUPGcjDsJA9Ki3ZqmY" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/fun-summer-sun-xUPGcjDsJA9Ki3ZqmY"></a></p>`;
+  } else if (descriptionGIF === "01n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/l3q2ICbdSmDqnlxC0" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/animation-fun-loop-l3q2ICbdSmDqnlxC0"></a></p>`;   
+  } else if (descriptionGIF === "02d") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/26BGDQxDCZDFHW5Ne" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/animation-loop-sun-26BGDQxDCZDFHW5Ne"></a></p>`;   
+  } else if (descriptionGIF === "02n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:76%;position:relative;"><iframe src="https://giphy.com/embed/l0HU7Cs5D0Gbo7G3S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/animation-illustration-night-l0HU7Cs5D0Gbo7G3S"></a></p>`;   
+  } else if (descriptionGIF === "03d") {
    document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
-  } else if (descriptionGIF === "Rain") {
+  } else if (descriptionGIF === "03n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:76%;position:relative;"><iframe src="https://giphy.com/embed/l0HU7Cs5D0Gbo7G3S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/animation-illustration-night-l0HU7Cs5D0Gbo7G3S"></a></p>`;   
+  } else if (descriptionGIF === "04d") {
    document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
-  } else if (descriptionGIF === "Drizzle") {
-   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
-  } else if (descriptionGIF === "Thunderstorm") {
-   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
-  } else if (descriptionGIF === "Clear") {
-   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
-  } else if (descriptionGIF === "Mist"||descriptionGIF === "Smoke"||descriptionGIF === "Haze"||descriptionGIF === "Dust"||descriptionGIF === "Fog"||descriptionGIF === "Sand"||descriptionGIF === "Ash"||descriptionGIF === "Tornado"||descriptionGIF === "Squall")  {
-   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/rrFcUcN3MFmta" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/sunglasses-rrFcUcN3MFmta"></a></p>`;   
-  } else {
-    document.querySelector("#weather-gif").innerHTML = null;
-  }
-
+  } else if (descriptionGIF === "04n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:76%;position:relative;"><iframe src="https://giphy.com/embed/l0HU7Cs5D0Gbo7G3S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/animation-illustration-night-l0HU7Cs5D0Gbo7G3S"></a></p>`;   
+  } else if (descriptionGIF === "09d") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/7zSIC0roM238CVTS4u" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cute-aww-eyebleach-7zSIC0roM238CVTS4u"></a></p>`;   
+  } else if (descriptionGIF === "09n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:41%;position:relative;"><iframe src="https://giphy.com/embed/l0HlPtBCscbYiLfR6" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/nowthatsmusic-now-thats-what-i-call-music-60-l0HlPtBCscbYiLfR6"></a></p>`;   
+  } else if (descriptionGIF === "10d") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/7zSIC0roM238CVTS4u" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cute-aww-eyebleach-7zSIC0roM238CVTS4u"></a></p>`;   
+  } else if (descriptionGIF === "10n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:41%;position:relative;"><iframe src="https://giphy.com/embed/l0HlPtBCscbYiLfR6" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/nowthatsmusic-now-thats-what-i-call-music-60-l0HlPtBCscbYiLfR6"></a></p>`;   
+  } else if (descriptionGIF === "11d") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/26uf5HjasTtxtNCqQ" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cloud-idiom-steal-your-thunder-26uf5HjasTtxtNCqQ"></a></p>`;   
+  } else if (descriptionGIF === "11n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/26uf5HjasTtxtNCqQ" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cloud-idiom-steal-your-thunder-26uf5HjasTtxtNCqQ"></a></p>`;   
+  } else if (descriptionGIF === "13d") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/uos5sW7pBy5W0" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/digg-what-is-this-ground-uos5sW7pBy5W0"></a></p>`;   
+  } else if (descriptionGIF === "13n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/uos5sW7pBy5W0" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/digg-what-is-this-ground-uos5sW7pBy5W0"></a></p>`;   
+  } else if (descriptionGIF === "50n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/l4pT0NtPSMV3pw6Lm" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/scoobydoo-cartoon-scooby-doo-l4pT0NtPSMV3pw6Lm"></a></p>`;   
+  } else if (descriptionGIF === "50n") {
+   document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/l4pT0NtPSMV3pw6Lm" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/scoobydoo-cartoon-scooby-doo-l4pT0NtPSMV3pw6Lm"></a></p>`;   
+  } 
 
 }
 
