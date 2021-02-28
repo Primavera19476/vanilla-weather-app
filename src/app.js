@@ -167,8 +167,27 @@ function convertToFahrenheit(event) {
   windspeedElement.innerHTML = Math.round(mphWindspeed);
   document.querySelector("#windspeed-unit").innerHTML = "mph";
 
-  // Trial: converting Forecast Units //
-  //document.querySelector("#hourly-forecast-temperature").innerHTML = (document.querySelector("#hourly-forecast-temperature").innerHTML.value *9)/5+32;
+  // converting Dailyforecast Units //
+  let dailyForecastMax = document.querySelectorAll(".daily-forecast-max");
+  dailyForecastMax.forEach(function (item) {
+    let dailyCurrentTemp = item.innerHTML;
+    item.innerHTML = Math.round((dailyCurrentTemp*9) / 5+32);
+  });
+
+  let dailyForecastMin = document.querySelectorAll (".daily-forecast-min");
+  dailyForecastMin.forEach(function (item) {
+    let dailyCurrentTemp = item.innerHTML;
+    item.innerHTML = Math.round ((dailyCurrentTemp *9)/5+32);
+  });
+
+   let hourlyForecast = document.querySelectorAll (".hourly-forecast-temp");
+    hourlyForecast.forEach(function (item) {
+    let hourlyCurrentTemp = item.innerHTML;
+    item.innerHTML = Math.round ((hourlyCurrentTemp *9)/5+32);
+  });
+
+  celsiusLink.addEventListener("click", convertToCelsius);
+  fahrenheitLink.removeEventListener("click", convertToFahrenheit);
 }
 
 function convertToCelsius(event) {
@@ -185,7 +204,28 @@ function convertToCelsius(event) {
   let windspeedElement = document.querySelector ("#windspeed");
   windspeedElement.innerHTML = Math.round(kmhWindspeed);
   document.querySelector("#windspeed-unit").innerHTML = "km/h";
+
+  let dailyForecastMax = document.querySelectorAll (".daily-forecast-max");
+  dailyForecastMax.forEach(function (item) {
+    let dailyCurrentTemp = item.innerHTML;
+    item.innerHTML = Math.round(((dailyCurrentTemp -32)*5) /9);
+  });
+
+  let dailyForecastMin = document.querySelectorAll (".daily-forecast-min");
+  dailyForecastMin.forEach (function (item) {
+    let dailyCurrentTemp = item.innerHTML;
+    item.innerHTML = Math.round (((dailyCurrentTemp -32)*5)/9);
+  });
+
+    let hourlyForecast = document.querySelectorAll (".hourly-forecast-temp");
+    hourlyForecast.forEach (function (item) {
+    let hourlyCurrentTemp = item.innerHTML;
+    item.innerHTML = Math.round (((hourlyCurrentTemp -32)*5)/9);
+  });
+  celsiusLink.removeEventListener("click", convertToCelsius);
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
+
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
@@ -210,7 +250,7 @@ function displayHourlyForecast (response) {
   <ul class="list-group list-group-flush">
   <li class="list-group-item"> ${formatHours(forecastArray.dt* 1000)}
     <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
-    <span id="hourly-forecast-temperature"> ${Math.round(forecastArray.main.temp_max)}</span>°
+    <span id="hourly-forecast-temperature" class="hourly-forecast-temp"> ${Math.round(forecastArray.main.temp_max)}</span>°
   </li>
     </ul>
     `;
@@ -234,11 +274,16 @@ function displayDailyForecast (response) {
       </h6>
       <img class="forecastIcon" src="http://openweathermap.org/img/wn/${dailyForecastArray.weather[0].icon}@2x.png" alt="${dailyForecastArray.weather[0].description}">
       <br/>
-      <div class="forecast-temperature">
-        <strong>△ ${Math.round(dailyForecastArray.temp.max)}</strong>
-        <strong>°</strong>
+      <div class="daily-forecast-temperature">
+        <strong>△
+          <span class="daily-forecast-max"> ${Math.round(dailyForecastArray.temp.max)}</span>
+            °
+          </strong>
         <br/>
-        <span>▽ ${ Math.round(dailyForecastArray.temp.min)}</span>°
+        <span>▽
+        <span class="daily-forecast-min"> ${ Math.round(dailyForecastArray.temp.min)}</span>
+        °
+        </span>
       </div>
     </div>
     `;
