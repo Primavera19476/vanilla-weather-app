@@ -1,4 +1,4 @@
-/*
+/* TO DO LIST
 💯Search engine 
 💯API integration 
 💯unit conversion
@@ -8,9 +8,11 @@
 💯and weather icon are mandatory. 
 💯convert Windspeed to mpH
 💯implement daily forecast
-convert Forecast units
-💯 implement Background-image
-💯 The forecast is optional */
+💯convert Forecast units
+💯implement Background-image
+💯display local time
+re-align main icon (float)
+💯The forecast is optional */
 
 // Format Date //
 function formatDate (dateValue) {
@@ -56,6 +58,16 @@ let dateValue = new Date (timestamp);
   return `${hours}:${minutes}`;
 }
 
+// Format Hours only //
+function formatHoursOnly (timestamp) {
+let dateValue = new Date (timestamp);
+    let hours = dateValue.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  return `${hours}`;
+}
+
 // Search-Bar Input //
 function search (city) {
   let apiKey = "e43b0a6cd655b887c6853a81917a0cda";
@@ -79,7 +91,6 @@ search("Vienna");
 
 // display weather // 
 function displayWeatherMain (response) {
-  console.log(response);
   celciusTemperature = (response.data.main.temp);
   celciusTemperatureFeelsLike = (response.data.main.feels_like);
   kmhWindspeed = (response.data.wind.speed);
@@ -93,8 +104,6 @@ function displayWeatherMain (response) {
   document.querySelector("#icon-main").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   document.querySelector("#icon-main").setAttribute("alt", response.data.weather[0].description);
   let descriptionGIF =  response.data.weather[0].icon;
-  console.log(descriptionGIF);
-  console.log (response.data.weather[0].main);
   let dateElement = document.querySelector("#day-element");
   let currentTime = new Date();
   dateElement.innerHTML = formatDate(currentTime);
@@ -146,6 +155,9 @@ function displayWeatherMain (response) {
    document.querySelector("#weather-gif").innerHTML = `<div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/l4pT0NtPSMV3pw6Lm" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/scoobydoo-cartoon-scooby-doo-l4pT0NtPSMV3pw6Lm"></a></p>`;   
   } 
 
+  let localTime = ((response.data.dt + (response.data.timezone-3600)) * 1000);
+  let localTimeElement = document.querySelector ("#local-time-hours");
+  localTimeElement.innerHTML = `Last local time update: ${formatHours(localTime)}`;
 }
 
 // Convert Units //
@@ -243,12 +255,11 @@ function displayHourlyForecast (response) {
   let forecastElement = document.querySelector("#forecastHourly");
   forecastElement.innerHTML = null;
   let forecastArray = null;
-
   for (let index = 0; index < 6; index++) {
   forecastArray = response.data.list[index];
   forecastElement.innerHTML +=`
   <ul class="list-group list-group-flush">
-  <li class="list-group-item"> ${formatHours(forecastArray.dt* 1000)}
+  <li class="list-group-item"> ${formatHours((forecastArray.dt + (response.data.city.timezone -3600))* 1000)}
     <img class="forecastIcon" src="http://openweathermap.org/img/wn/${forecastArray.weather[0].icon}@2x.png" alt="${forecastArray.weather[0].description}">
     <span id="hourly-forecast-temperature" class="hourly-forecast-temp"> ${Math.round(forecastArray.main.temp_max)}</span>°
   </li>
@@ -260,7 +271,6 @@ function displayHourlyForecast (response) {
 // Daily Forecast //
 
 function displayDailyForecast (response) {
-  console.log(response);
   let dailyForecastElement = document.querySelector("#forecastDaily");
   dailyForecastElement.innerHTML = null;
   let dailyForecastArray = null;
