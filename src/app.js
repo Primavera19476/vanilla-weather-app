@@ -93,7 +93,7 @@ search("Vienna");
 function displayWeatherMain (response) {
   celciusTemperature = (response.data.main.temp);
   celciusTemperatureFeelsLike = (response.data.main.feels_like);
-  kmhWindspeed = (response.data.wind.speed);
+  kmhWindspeed = ((response.data.wind.speed)*3,6);
   let temperatureElementMain = document.querySelector ("#temperature-Main");
   temperatureElementMain.innerHTML = Math.round(celciusTemperature);
   document.querySelector("#current-City").innerHTML = `${response.data.name}, ${response.data.sys.country}`;
